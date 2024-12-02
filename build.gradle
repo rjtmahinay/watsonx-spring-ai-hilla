@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id 'com.vaadin' version '24.5.3'
+    id "io.freefair.lombok" version "8.10.2"
+}
+
+group = 'com.rjtmahinay.watsonx.ai'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven {
+        url "https://maven.vaadin.com/vaadin-addons"
+    }
+}
+
+ext {
+    set('vaadinVersion', "24.5.3")
+    set('springAiVersion', "1.0.0-SNAPSHOT")
+}
+
+dependencies {
+    implementation 'com.vaadin:vaadin-spring-boot-starter'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // Spring AI using watsonx
+    implementation 'org.springframework.ai:spring-ai-watsonx-ai-spring-boot-starter'
+
+    // Spring Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+        mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+    }
+}
+
+// We will not use
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}

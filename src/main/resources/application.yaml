@@ -1,0 +1,18 @@
+vaadin:
+  launch-browser: true
+
+spring:
+  ai:
+    watsonx:
+      ai:
+        project-id: ${PROJECT_ID}
+        i-a-m-token: ${API_KEY}
+        base-url: https://us-south.ml.cloud.ibm.com
+        chat:
+          options:
+            model: "ibm/granite-13b-chat-v2"
+            max-new-tokens: 8191
+        text-endpoint: "/ml/v1/text/generation?version=2024-05-31"
+        stream-endpoint: "/ml/v1/text/generation_stream?version=2024-05-31"
+  config:
+    import: file:./config/env_vars.properties

@@ -1,0 +1,26 @@
+[
+  {
+    "route": "",
+    "flowLayout": false,
+    "params": {},
+    "title": "Dashboard"
+  },
+  {
+    "route": "chat",
+    "params": {},
+    "children": [
+      {
+        "route": "ChatView",
+        "flowLayout": false,
+        "params": {},
+        "title": "Chat"
+      },
+      {
+        "route": "StreamingChatView",
+        "flowLayout": false,
+        "params": {},
+        "title": "Streaming Chat"
+      }
+    ]
+  }
+]
