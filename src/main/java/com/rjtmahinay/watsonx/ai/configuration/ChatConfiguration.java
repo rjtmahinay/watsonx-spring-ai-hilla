@@ -8,6 +8,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ChatConfiguration {
 
+    /**
+     * This method is used to create a ChatClient bean.
+     * @param watsonxAiChatModel The chat model to be used
+     * @return The ChatClient bean
+     */
     @Bean
     ChatClient watsonxChatClient(WatsonxAiChatModel watsonxAiChatModel) {
         return ChatClient.builder(watsonxAiChatModel)

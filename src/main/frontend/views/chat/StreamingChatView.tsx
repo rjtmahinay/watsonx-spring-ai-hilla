@@ -14,7 +14,7 @@ interface Message {
 
 const StreamingChatView = () => {
     const [messages, setMessages] = useState<Message[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const getMessageStyles = (isAI: boolean) => ({
         textAlign: isAI ? 'right' : 'left',
@@ -47,7 +47,7 @@ const StreamingChatView = () => {
         };
 
         setMessages(prevMessages => [...prevMessages, newUserMessage]);
-        setIsLoading(true);
+        setLoading(true);
 
         try {
             const response = ChatEndpoint.generateStreamingMessage(inputMessage);
@@ -59,7 +59,6 @@ const StreamingChatView = () => {
             };
             setMessages((prevMessages) => [...prevMessages, aiResponse]);
 
-            // Handle the streaming response
             response.onNext((chunk: string | undefined) => {
                 setMessages((prevMessages) => {
                     const lastMessage = prevMessages[prevMessages.length - 1];
@@ -74,16 +73,16 @@ const StreamingChatView = () => {
             });
 
             response.onComplete(() => {
-                setIsLoading(false);
+                setLoading(false);
             });
 
             response.onError(() => {
                 console.error('Error during stream');
-                setIsLoading(false);
+                setLoading(false);
             });
         } catch (error) {
             console.error('Error sending message:', error);
-            setIsLoading(false);
+            setLoading(false);
         }
     };
 
@@ -111,7 +110,7 @@ const StreamingChatView = () => {
                         className="message-list"
                     />
 
-                    {isLoading && (
+                    {loading && (
                         <div className="typing-indicator">
                             AI is typing...
                             <img
@@ -126,7 +125,7 @@ const StreamingChatView = () => {
                         <MessageInput
                             className="message-input"
                             onSubmit={handleSubmit}
-                            disabled={isLoading}
+                            disabled={loading}
                             theme="icons"
                         />
                     </div>
